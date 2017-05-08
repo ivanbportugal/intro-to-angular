@@ -73,7 +73,7 @@
 		<pre class="next">
 			<code>import { Component } from '@angular/core';</code>
 
-			<code>@Component({</code>
+			<code><mark>@Component</mark>({</code>
 			<code>  selector: 'my-app',</code>
 			<code>  template: `&lt;h1&gt;Hello {{name}}&lt;/h1&gt;`</code>
 			<code>})</code>
@@ -103,18 +103,32 @@
 		<h2>Fetching Data</h2>
 		<p class="next">Promises</p>
 		<pre class="next">
-			<code>var afterDataArrived = $http.get('/my-api');</code>
+			<code>var afterDataArrived = <mark>$http</mark>.get('/my-api');</code>
 			<code>afterDataArrived.then(function(response) {</code>
-			<code>  // Update the view</code>
+			<code>  <span class="comment">// Update the view</span></code>
 			<code>}, function(error) {</code>
-			<code>  // Something bad happened</code>
+			<code>  <span class="comment">// Something bad happened</span></code>
 			<code>});</code>
 		</pre>
-		<h2 class="next">WRONG!</h2>
+		<h3 class="next" style="margin-left: 25%">WRONG! Angular 2 uses Observables...</h3>
 	</section>
 
 	<section class="slide">
 		<h2>Observables &gt;&gt; Promises</h2>
+		<h3 class="next">Promise</h3>
+		<ul class="next">
+			<li>Handles a single event</li>
+			<li>Not cancellable (Bluebird needed to add that functionality)</li>
+		</ul>
+		<h3 class="next">Observable</h3>
+		<ul class="next">
+			<li>Similar to a <code>Stream</code>, allowing the user to pass zero or more events</li>
+			<li>Can be arbitrarily cancelled</li>
+			<li>Several powerful operators that are similar to <code>Func</code>s in <code>C#</code></li>
+			<ul>
+				<li><code>map</code>, <code>forEach</code>, <code>reduce</code>, <code>retry()</code>, <code>replay()</code></li>
+			</ul>
+		</ul>
 	</section>
 
 	<section class="slide">
@@ -123,7 +137,8 @@
 			<code>import { Injectable } from '@angular/core';</code>
 			<code>import { Http, Headers, RequestOptions } from '@angular/http';</code>
 			<code>import { Observable } from 'rxjs/Rx';</code>
-			<code>search(query: string): Observable &lt;Verse[]&gt; {&lt;/Verse[]&gt;</code>
+			<code><span class="comment">// Take in a string and return a Verse array</span></code>
+			<code>search(query: string): <mark>Observable</mark> &lt;Verse[]&gt; {&lt;/Verse[]&gt;</code>
 		    <code>  let headers = new Headers({ 'Content-Type': 'text/plain' });</code>
 		    <code>  let options = new RequestOptions({ headers: headers });</code>
 		</pre>
@@ -132,11 +147,11 @@
 	<section class="slide">
 		<h2>Observable Example (part 2)</h2>
 		<pre>
-			<code>  return this.http.post(this.baseUrl + 'search?query=' </code>
+			<code>  return <mark>this.http.post</mark>(this.baseUrl + 'search?query=' </code>
 			<code>   + query, {}, options)</code>
 		    <code>    .timeout(3000, new Error('The server timed out!</code>
 		    <code>      Maybe your query is too complex.'))</code>
-		    <code>    .map(response => response.json())</code>
+		    <code>    .map(response => response.json()) <span class="comment">// some power here :)</span></code>
 		    <code>    .catch((error:any) => Observable.throw(error._body ||</code>
 		    <code>      'Could not fetch verse for some unknown reason.'));</code>
 		    <code>}</code>
@@ -144,128 +159,33 @@
 	</section>
 
 	<section class="slide">
-		<h2>Two columns if you like</h2>
-		<p class="double">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-	</section>
-
-	<section class="slide">
-		<h2>All kind of lists</h2>
-		<ol>
-			<li>Simple lists are marked with bullets</li>
-			<li>Ordered lists begin with a number</li>
-			<li>You can even nest lists one inside another
-				<ul>
-					<li>Or mix their types</li>
-					<li>But do not go too far</li>
-					<li>Otherwise audience will be bored</li>
-				</ul>
-			</li>
-			<li>Look, seven rows exactly!</li>
-		</ol>
-	</section>
-
-	<section class="slide">
-		<h2>Serious citations</h2>
-		<figure>
-			<blockquote>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-			</blockquote>
-			<figcaption>Marcus Tullius Cicero</figcaption>
-		</figure>
-	</section>
-
-	<section class="slide">
-		<h2>Code samples</h2>
+		<h2>Updating the UI</h2>
 		<pre>
-			<code>&lt;!DOCTYPE html&gt;</code>
-			<code class="mark">&lt;html lang="en"&gt;</code>
-			<code><mark>&lt;head&gt;</mark> <span class="comment">&lt;!--Comment--&gt;</span></code>
-			<code>    &lt;title&gt;Shower&lt;/title&gt;</code>
-			<code>    &lt;meta charset="<mark class="important">UTF-8</mark>"&gt;</code>
-			<code>    &lt;link rel="stylesheet" href="screen.css"&gt;</code>
-			<code><mark>&lt;/head&gt;</mark></code>
-		</pre>
+			<code>this.verseProvider.search(val)</code>
+	        <code>    .subscribe(</code>
+	        <code>        <mark>verses</mark> => {</code>
+	        <code>            this.Items = verses; <span class="comment">// Success</span></code>
+	        <code>        },</code>
+	        <code>        <mark>err</mark> => {</code>
+	        <code>            this.toastify(err); <span class="comment">// Nope!</span></code>
+	        <code>        });</code>
+        </pre>
 	</section>
 
 	<section class="slide">
-		<h2>Even tables</h2>
-		<table>
-		<tr>
-			<th scope="col">Locavore</th>
-			<th>Umami</th>
-			<th>Helvetica</th>
-			<th>Vegan</th>
-		</tr>
-		<tr>
-			<th scope="row">Fingerstache</th>
-			<td>Kale</td>
-			<td>Chips</td>
-			<td>Keytar</td>
-		</tr>
-		<tr>
-			<th scope="row">Sriracha</th>
-			<td>Gluten-free</td>
-			<td>Ennui</td>
-			<td>Keffiyeh</td>
-		</tr>
-		<tr>
-			<th scope="row">Thundercats</th>
-			<td>Jean</td>
-			<td>Shorts</td>
-			<td>Biodiesel</td>
-		</tr>
-		<tr>
-			<th scope="row">Terry</th>
-			<td>Richardson</td>
-			<td>Swag</td>
-			<td>Blog</td>
-		</tr>
-		</table>
-		<p>It’s good to have information organized.</p>
-	</section>
-
-	<section class="slide" id="picture">
-		<h2>Pictures</h2>
-		<figure>
-			<img class="cover" src="pictures/picture.jpg" alt="Orange typewriter on a wooden table close-up">
-			<figcaption class="white">
-				<a href="http://fiftyfootshadows.net/">© John Carey</a>
-			</figcaption>
-		</figure>
-		<style>
-			#picture h2 {
-				color:#FFF;
-				}
-		</style>
-	</section>
-
-	<section class="slide">
-		<h2 class="shout shrink">You can even shout this way</h2>
-	</section>
-
-	<section class="slide">
-		<h2>Inner navigation</h2>
-		<ol>
-			<li>Lets you reveal list items one by one</li>
-			<li class="next">To keep some key points</li>
-			<li class="next">In secret from audience</li>
-			<li class="next">But it will work only once</li>
-			<li class="next">Nobody wants to see the same joke twice</li>
-		</ol>
-	</section>
-
-	<section class="slide grid">
-		<h2>All nicely aligned to grid</h2>
+		<h2>Demo</h2>
+		<p>I'm tired of copying and pasting snippets so let's look at some practical examples...</p>
 	</section>
 
 	<section class="slide" id="see-more">
 		<h2 class="shout">
-			<a href="https://angular.io/docs/ts/latest/guide/learning-angular.html">Learning Angular</a>
-			<a href="https://angular.io/docs/ts/latest/guide/architecture.html">Angular Architecture Overview</a>
+			<a href="https://angular.io/docs/ts/latest/guide/learning-angular.html">Learning Angular</a><br>
+			<a href="https://angular.io/docs/ts/latest/guide/architecture.html">Angular Architecture Overview</a><br>
+			<a href="https://angular-2-training-book.rangle.io/">Rangle.io training book</a>
 		</h2>
 		<style>
 			#see-more h2 {
-				font-size:100px
+				font-size:50px
 			}
 		</style>
 	</section>
