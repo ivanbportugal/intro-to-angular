@@ -1,24 +1,22 @@
 {
-  "name": "shower",
-  "description": "Shower HTML presentation engine",
-  "version": "2.1.9",
+  "name": "intro-to-angular",
+  "description": "Intro To Angular 2 presentation, using Shower",
+  "version": "1.0.0",
   "author": {
-    "name": "Vadim Makeev",
-    "url": "http://pepelsbey.net/"
+    "name": "Ivan Portugal",
+    "url": "https://github.com/ivanbportugal"
   },
-  "homepage": "https://github.com/shower/shower",
+  "homepage": "https://github.com/ivanbportugal/intro-to-angular",
   "repository": {
     "type": "git",
-    "url": "git://github.com/shower/shower.git"
-  },
-  "bugs": {
-    "url": "http://github.com/shower/shower/issues"
+    "url": "git@github.com:ivanbportugal/intro-to-angular.git"
   },
   "license": "MIT",
   "keywords": [
     "shower",
     "presentation",
-    "template"
+    "template",
+    "angular"
   ],
   "files": [
     "pictures/**",
