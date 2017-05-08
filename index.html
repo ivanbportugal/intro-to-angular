@@ -6,6 +6,23 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="node_modules/shower-material/styles/screen-16x10.css">
+	<style>
+		.next {
+			opacity: 0;
+			-webkit-transform: translateY(10px);
+			-moz-transform: translateY(10px);
+			transform: translateY(10px);
+			-webkit-transition: visibility 0.5s linear, opacity 0.5s linear, transform 0.5s linear;
+			-moz-transition: visibility 0.5s linear, opacity 0.5s linear, transform 0.5s linear;
+			-o-transition: visibility 0.5s linear, opacity 0.5s linear, transform 0.5s linear;
+		}
+		.next.active, body.list .next {
+			opacity: 1;
+			-webkit-transform: translateY(0);
+			-moz-transform: translateY(0);
+			transform: translateY(0);
+		}
+	</style>
 </head>
 <body class="shower list">
 
@@ -15,50 +32,71 @@
 	</header>
 
 	<section class="slide" id="cover">
-		<h2>Shower Presentation Engine</h2>
-		<p>Brought to you by <a href="http://pepelsbey.net">Vadim Makeev</a></p>
+		<h2>Intro To Angular 2</h2>
+		<p>Brought to you by <a href="https://github.com/ivanbportugal">Ivan Portugal</a></p>
 		<figure>
-			<img class="cover" src="pictures/cover.jpg" alt="Hands on the orange typewriter in a park">
-			<figcaption class="white">
-				<a href="http://fiftyfootshadows.net/">© John Carey</a>
-			</figcaption>
+			<img class="cover" style="top: 70%" src="pictures/ionic-angular.png" alt="Angular Ionic logos">
 		</figure>
 		<style>
 			#cover h2 {
 				margin:30px 0 0;
-				color:#FFF;
 				text-align:center;
 				font-size:70px;
-				}
+			}
 			#cover p {
 				margin:10px 0 0;
 				text-align:center;
-				color:#FFF;
 				font-style:italic;
 				font-size:20px;
-				}
-				#cover p a {
-					color:#FFF;
-					}
+			}
+			.slide .cover {
+			    max-width: 65%;
+			}
 		</style>
 	</section>
 
 	<section class="slide">
-		<h2>Shower key features</h2>
-		<ol>
-			<li>Built on HTML, CSS and vanilla JavaScript</li>
-			<li>Works in all modern browsers</li>
-			<li>Themes are separated from engine</li>
-			<li>Modular and extensible</li>
-			<li>Fully keyboard accessible</li>
-			<li>Printable to PDF</li>
+		<h2>TypeScript?</h2>
+		<ol class="next">
+			<li>Superset of ES6</li>
+			<li>Statically Typed</li>
+			<li>Annotations</li>
 		</ol>
-		<p class="note">Shower ['ʃəuə] noun. A person or thing that shows.</p>
+		<p class="note next">TypeScript created by Microsoft</p>
+		<figure>
+			<img class="cover" style="left: 70%" src="pictures/tsCompare.png" alt="TypeScript comparison">
+		</figure>
+		<style>
+			.slide .cover {
+				width: 50%;
+			}
+		</style>
 	</section>
 
 	<section class="slide">
-		<h2>Plain text on your slides</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur <a href="#4">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud</em> exercitation ullamco laboris <strong>nisi ut aliquip</strong> ex ea commodo consequat. Duis aute irure <i>dolor</i> in reprehenderit in voluptate velit esse cillum <b>dolore</b> eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <code>&lt;culpa&gt;</code> qui officia deserunt mollit anim id est laborum.</p>
+		<h2>Component = basic building block</h2>
+		<pre class="next">
+			<code>import { Component } from '@angular/core';</code>
+
+			<code>@Component({</code>
+			<code>  selector: 'my-app',</code>
+			<code>  template: `&lt;h1&gt;Hello {{name}}&lt;/h1&gt;`</code>
+			<code>})</code>
+			<code>export class AppComponent { name = 'Angular'; }</code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Fetching Data</h2>
+		<p class="next">Promises</p>
+		<pre class="next">
+			<code>var afterDataArrived = $http.get('/my-api');</code>
+			<code>afterDataArrived.then(function(response) {</code>
+			<code>  // Update the view</code>
+			<code>}, function(error) {</code>
+			<code>  // Something bad happened</code>
+			<code>});</code>
+		</pre>
 	</section>
 
 	<section class="slide">
